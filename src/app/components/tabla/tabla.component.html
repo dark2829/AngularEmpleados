@@ -1,29 +1,81 @@
+<div class="container">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                @for(header of headers; track header){
+                @if(header == "Acciones"){
+                <th class="col-2">
+                    {{header}}
+                </th>
+                }
 
-<table mat-table [dataSource]="empleadoResponse$?.data" class="mat-elevation-z8 demo-table">
-    <!-- Position Column -->
-    <ng-container matColumnDef="demo-position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
-    </ng-container>
-  
-    <!-- Name Column -->
-    <ng-container matColumnDef="demo-name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="demo-weight">
-      <th mat-header-cell *matHeaderCellDef> Weight </th>
-      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
-    </ng-container>
-  
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="demo-symbol">
-      <th mat-header-cell *matHeaderCellDef> Symbol </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
-    </ng-container>
-  
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>  
+                @else{
+                <th class="col">
+                    {{header}}
+                </th>
+                }
+
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if(empleadoResponse$ != null){
+            @for(empleado of empleadoResponse$.data; track empleado){
+            <tr>
+                <th scope="row">{{empleado.id}}</th>
+                <td>{{empleado.nombre}}</td>
+                <td>{{empleado.puesto}}</td>
+                <td>{{empleado.salario}}</td>
+                <td>{{empleado.status}}</td>
+                <td>{{empleado.rfc}}</td>
+                <td>
+                    <div>
+                        <button type="button" class="btn btn-primary m1" data-bs-toggle="modal"
+                            data-bs-target="#modalEdit" (click)="seleccionarEmpleado(empleado)">
+                            Editar
+                        </button>
+                        <button type="button" class="btn btn-danger m-1">eliminar</button>
+                    </div>
+                </td>
+            </tr>
+            }
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h4 class="modal-title">Editar empleado</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formulario">
+                    <div class="row">
+                        <div class="col-12 m-1">
+                            <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre" name="nombre">
+                        </div>
+                        <div class="col-12 m-1">
+                            <input formControlName="salario" type="text" class="form-control" placeholder="Salario" name="salario">
+                        </div>
+                        <div class="col-12 m-1">
+                            <input formControlName="fecha" type="text" class="form-control" placeholder="Fecha de ingreso" name="fecha">
+                        </div>
+                        <div class="col-12 m-1">
+                            <input formControlName="estatus" type="text" class="form-control" placeholder="Estatus" name="estatus">
+                        </div>
+                        <div class="col-12 m-1">
+                            <input formControlName="rfc" type="text" class="form-control" placeholder="RFC" name="rfc">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button (click)="modificarEmpleado(formulario.value)" type="submit" class="btn btn-success" data-bs-dismiss="modal">Guardar</button>
+                <button (click)="reset()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
