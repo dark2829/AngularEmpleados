@@ -35,7 +35,6 @@ export class EmpleadoServiceService {
 
   insertar(empleado: IempleadoInsert): Observable<EmpleadoResponse> {
     const url = API_URLS.base + API_URLS.crear;
-    console.log(empleado);
     return this.http.post<EmpleadoResponse>(url, empleado);
   }
 }

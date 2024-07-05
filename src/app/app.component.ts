@@ -23,7 +23,6 @@ export class AppComponent {
   };
 
   actualizarLista(event: EmpleadoResponse) {
-    console.log(event);
     this.listaDeEmpleados = event;
   }
 
