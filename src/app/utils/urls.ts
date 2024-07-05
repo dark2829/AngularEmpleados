@@ -5,6 +5,5 @@ export const API_URLS = {
     save: "/crear",
     delete: "/!/borrar",
     crear: "/crear",
-    findId: "/!",
-    findName: "/buscar?nombre:!"
+    findOp: "/findOptions",
   };

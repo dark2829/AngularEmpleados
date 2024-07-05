@@ -3,7 +3,7 @@
     <h3>Empleados</h3>
 </div>
 <div class="container bg-dark text-white">
-    <app-formulario></app-formulario>
+    <app-formulario (listaActualizada)="actualizarLista($event)" ></app-formulario>
     <div class="mb-5"></div>
-    <app-tabla></app-tabla>
+    <app-tabla [listaDeEmpleados]="listaDeEmpleados"></app-tabla>
 </div>

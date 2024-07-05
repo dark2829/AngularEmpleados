@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { EmpleadoServiceService } from '../../services/empleado-service.service';
 import { EmpleadoResponse, Iempleado } from '../../interfaces/iempleado';
 import { AsyncPipe, JsonPipe } from '@angular/common';
@@ -12,6 +12,13 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
   styleUrl: './tabla.component.css'
 })
 export class TablaComponent implements OnInit {
+
+  @Input() listaDeEmpleados: EmpleadoResponse = {
+    data: [],
+    http: '', 
+    message: '', 
+    status: '',
+  };
   
   private empleadoService = inject(EmpleadoServiceService);
   headers = ["ID", "Nombre", "Puesto", "Salario", "Estatus", "RFC", "Acciones"]
@@ -35,8 +42,18 @@ export class TablaComponent implements OnInit {
 
   ngOnInit(): void {
     this.empleadoService.listar().subscribe(empleados => {
-      this.empleadoResponse$ = empleados; 
+      if(this.listaDeEmpleados.data.length != 0){
+        this.empleadoResponse$ = this.listaDeEmpleados;
+      }else{
+        this.empleadoResponse$ = empleados; 
+      }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['listaDeEmpleados']) {
+      this.empleadoResponse$ = changes['listaDeEmpleados'].currentValue;
+    }
   }
 
   modificarEmpleado(data : any): any{

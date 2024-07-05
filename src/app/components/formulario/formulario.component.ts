@@ -1,6 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { EmpleadoResponse, Iempleado, IempleadoInsert } from '../../interfaces/iempleado';
+import { EmpleadoResponse, IbusquedaEmpleado, Iempleado, IempleadoInsert } from '../../interfaces/iempleado';
 import { EmpleadoServiceService } from '../../services/empleado-service.service';
 
 @Component({
@@ -11,6 +11,8 @@ import { EmpleadoServiceService } from '../../services/empleado-service.service'
   styleUrl: './formulario.component.css'
 })
 export class FormularioComponent implements OnInit{
+
+  @Output() listaActualizada = new EventEmitter<EmpleadoResponse>();
   
   private empleadoService = inject(EmpleadoServiceService);
   empleadoResponse$: EmpleadoResponse | any;
@@ -65,18 +67,26 @@ export class FormularioComponent implements OnInit{
   }
 
   buscar(formulario: any){
+    let busqueda: IbusquedaEmpleado = {};
     if(formulario.nombre !== ""){
-      console.log("name");
+      busqueda.nombre = formulario.nombre; 
     }
     if(formulario.rfc !== ""){
-      console.log("rfc");
+      busqueda.rfc = formulario.rfc; 
     }
     if(formulario.estatus !== ""){
-      console.log("es");
+      busqueda.estatus = formulario.estatus; 
     }
     if(formulario.id !== ""){
-      console.log("id");
+      busqueda.id = formulario.id; 
     }
+    
+    this.empleadoService.buscarOptions(busqueda).subscribe(empleados => {
+      this.empleadoResponse$ = empleados;
+      this.listaActualizada.emit(empleados);
+    }, error => {
+      console.log(error);
+    });
   }
 
   reset(){

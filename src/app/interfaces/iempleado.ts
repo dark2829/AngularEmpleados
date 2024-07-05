@@ -18,6 +18,13 @@ export interface IempleadoInsert{
     rfc: string
 }
 
+export interface IbusquedaEmpleado{
+    id?: number, 
+    nombre?: string, 
+    rfc?: string, 
+    estatus?: string
+}
+
 export interface EmpleadoResponse{
     data: Iempleado[];
     http: string; 

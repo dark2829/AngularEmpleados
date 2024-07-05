@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { TablaComponent } from './components/tabla/tabla.component';
 import { FormularioComponent } from './components/formulario/formulario.component';
 import { FormsModule } from '@angular/forms';
+import { EmpleadoResponse } from './interfaces/iempleado';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppComponent {
   title = 'empleados';
+
+  listaDeEmpleados: EmpleadoResponse = {
+    data: [],
+    http: '', 
+    message: '', 
+    status: '',
+  };
+
+  actualizarLista(event: EmpleadoResponse) {
+    console.log(event);
+    this.listaDeEmpleados = event;
+  }
+
 }
