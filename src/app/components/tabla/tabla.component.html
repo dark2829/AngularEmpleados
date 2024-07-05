@@ -30,11 +30,15 @@
                 <td>{{empleado.rfc}}</td>
                 <td>
                     <div>
-                        <button type="button" class="btn btn-primary m1" data-bs-toggle="modal"
+                        <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
                             data-bs-target="#modalEdit" (click)="seleccionarEmpleado(empleado)">
                             Editar
                         </button>
-                        <button type="button" class="btn btn-danger m-1">eliminar</button>
+                        
+                        <button type="button" class="btn btn-danger m.1" 
+                            (click)="eliminarEmpleado(empleado.id)">
+                            Eliminar
+                        </button>
                     </div>
                 </td>
             </tr>

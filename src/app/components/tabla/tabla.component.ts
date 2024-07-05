@@ -70,8 +70,15 @@ export class TablaComponent implements OnInit {
     });
   }
 
-  eliminarEmpleado(){
-    
+  eliminarEmpleado(id: string){
+    this.empleadoService.eliminar(id).subscribe(empleados => {
+      this.empleadoResponse$ = empleados; 
+      this.empleadoService.listar().subscribe(empleados => {
+        this.empleadoResponse$ = empleados; 
+      }, error => {
+        console.log(error);
+      });
+    });
   }
 
   reset(){

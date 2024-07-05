@@ -19,10 +19,12 @@ export class EmpleadoServiceService {
   actualizar(id: string, empleado: Iempleado): Observable<EmpleadoResponse> {
     let urlId =  API_URLS.update.replace("!", id);
     const url = API_URLS.base + urlId;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    console.log(url, id, empleado);
-    return this.http.put<EmpleadoResponse>(url, empleado, {headers});
+    return this.http.put<EmpleadoResponse>(url, empleado);
+  }
+
+  eliminar(id: string): Observable<EmpleadoResponse>{
+    const urlId = API_URLS.delete.replace("!", id);
+    const url = API_URLS.base + urlId;
+    return this.http.delete<EmpleadoResponse>(url);
   }
 }
