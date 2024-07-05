@@ -3,5 +3,8 @@ export const API_URLS = {
     findAll: "/empleados",
     update: "/!/modificar",
     save: "/crear",
-    delete: "/!/borrar"
+    delete: "/!/borrar",
+    crear: "/crear",
+    findId: "/!",
+    findName: "/buscar?nombre:!"
   };

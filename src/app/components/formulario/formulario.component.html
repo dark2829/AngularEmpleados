@@ -1,14 +1,14 @@
 <div class="container bg-dark text-white">
-    <form>
+    <form [formGroup]="formularioBusqueda">
         <div class="row m-3">
           <div class="col">
-            <input type="text" class="form-control" placeholder="Numero empleado" name="id">
+            <input formControlName="id" type="text" class="form-control" placeholder="Numero empleado" name="id">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="Nombre" name="nombre">
+            <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre" name="nombre">
           </div>
           <div class="col">
-            <input type="text" class="form-control" placeholder="RFC" name="rfc">
+            <input formControlName="rfc" type="text" class="form-control" placeholder="RFC" name="rfc">
           </div>
         </div>
         <div class="row m-3">
@@ -18,9 +18,52 @@
                     <option>Inactivo</option>
                   </select>
             </div>
-            <div class="col">
-                <button type="button" class="btn btn-success">Buscar usuario</button>
+            <div class="col text-end">
+                <button type="button" class="btn btn-success m-1" (click)="buscar(formularioBusqueda.value)">Buscar empleado</button>
+                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal"
+                    data-bs-target="#modalCrear">
+                    Crear empleado
+                </button>
             </div>
           </div>
       </form>
+</div>
+
+<div class="modal" id="modalCrear">
+  <div class="modal-dialog">
+      <div class="modal-content bg-dark">
+          <div class="modal-header">
+              <h4 class="modal-title">Editar empleado</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+              <form [formGroup]="formulario">
+                  <div class="row">
+                      <div class="col-12 m-1">
+                          <input formControlName="nombre" type="text" class="form-control" placeholder="Nombre" name="nombre">
+                      </div>
+                      <div class="col-12 m-1">
+                        <input formControlName="puesto" type="text" class="form-control" placeholder="Puesto" name="puesto">
+                    </div>
+                      <div class="col-12 m-1">
+                          <input formControlName="salario" type="text" class="form-control" placeholder="Salario" name="salario">
+                      </div>
+                      <div class="col-12 m-1">
+                          <input formControlName="fecha" type="text" class="form-control" placeholder="Fecha de ingreso" name="fecha">
+                      </div>
+                      <div class="col-12 m-1">
+                          <input formControlName="estatus" type="text" class="form-control" placeholder="Estatus" name="estatus">
+                      </div>
+                      <div class="col-12 m-1">
+                          <input formControlName="rfc" type="text" class="form-control" placeholder="RFC" name="rfc">
+                      </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+              <button (click)="insertarEmpleado(formulario.value)" type="submit" class="btn btn-success" data-bs-dismiss="modal">Insertar</button>
+              <button (click)="reset()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+  </div>
 </div>

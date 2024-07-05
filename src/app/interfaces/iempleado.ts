@@ -9,6 +9,15 @@ export interface Iempleado {
     rfc: string;
 }
 
+export interface IempleadoInsert{
+    nombreCompleto: string,
+    puesto: string,
+    salario: string,
+    fechaIngreso: string,
+    status: string,
+    rfc: string
+}
+
 export interface EmpleadoResponse{
     data: Iempleado[];
     http: string; 

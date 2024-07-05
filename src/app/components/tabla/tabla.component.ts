@@ -17,7 +17,6 @@ export class TablaComponent implements OnInit {
   headers = ["ID", "Nombre", "Puesto", "Salario", "Estatus", "RFC", "Acciones"]
   empleadoResponse$: EmpleadoResponse | any;
   empleadoSeleccionado: Iempleado | any; 
-
   formulario: FormGroup;
 
   constructor(
